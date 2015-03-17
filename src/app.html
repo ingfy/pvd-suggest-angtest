@@ -1,0 +1,111 @@
+<html ng-app="app" lang="en">
+    <head>
+        <meta charset="utf8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>AngularTest</title>
+
+        <!-- inject:css -->
+        <!-- endinject -->
+
+        <style>
+            .nobreak {
+                white-space: nowrap;
+            }
+        </style>
+    </head>
+    <body>
+        <div ng-controller="MyCtrl" class="container">
+            <h1>Date tests</h1>
+
+            <form class="form form-hroizontal">
+                <fieldset>
+                    <legend>Period</legend>
+                    <div class="form-group">
+                        <label class="col-sm-2">Selected period</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">{{period}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2" for="periodStart">Start</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="periodStart" ng-model="periodStart" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2" for="periodEnd">End</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="periodEnd" ng-model="periodEnd" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label class="col-sm-2" for="numSuggestions">Number of suggestions</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="numSuggestions" ng-model="numSuggestions" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12" >
+                            <input type="search" ng-model="input" class="form-control" placeholder="Type your time..." />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <h3>Suggestions</h3>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Date</th>
+                        <th>Hours</th>
+                        <th>To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="result in suggestions">
+                        <td>{{$index + 1}}</td>
+                        <td>{{result.date || result.firstDate}}</td>
+                        <td>{{result.hours || ''}}</td>
+                        <td>{{result.secondDate || ''}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        <!-- inject:js -->
+        <!-- endinject -->
+
+        <script>
+            var app = angular.module('app', []);
+            var pvdSuggest = require('pvd-suggest');
+
+            app.controller('MyCtrl', function ($scope) {
+                /* inputs */
+                $scope.input = '';
+                $scope.numSuggestions = 5;
+                $scope.periodStart = new Date();
+                $scope.periodEnd = new Date($scope.periodStart.getFullYear(), $scope.periodStart.getMonth() + 1);
+
+                /* calculated */
+                $scope.period = null;
+
+                /* result */
+                $scope.suggestions = [];
+
+                $scope.$watchGroup(['periodStart', 'periodEnd'], function () {
+                    $scope.period = pvdSuggest.Period
+                        .from($scope.periodStart.getFullYear(), $scope.periodStart.getMonth())
+                        .to($scope.periodEnd.getFullYear(), $scope.periodEnd.getMonth());
+                });
+
+                $scope.$watchGroup(['period', 'input', 'numSuggestions'], function () {
+                    $scope.suggestions = pvdSuggest.createSuggestions($scope.period, $scope.input, $scope.numSuggestions);
+                });
+            });
+        </script>
+    </body>
+</html>
