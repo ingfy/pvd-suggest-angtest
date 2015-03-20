@@ -1,5 +1,5 @@
 {
-  "name": "pvd-suggest-demo",
+  "name": "pvd-suggest-angtest",
   "version": "0.0.0",
   "authors": [
     "Yngve Svalestuen <yngve@outlook.com>"
@@ -16,5 +16,9 @@
     "angular": "~1.3.14",
     "bootstrap": "~3.3.2",
     "pvd-suggest": "ingfy/pvd-suggest#7f73341"
+  },
+  "overrides": {
+    "bootstrap": {"main": ["dist/css/bootstrap-theme.css", "dist/css/bootstrap.css", "dist/fonts/*"]},
+    "jquery": {"main": []}
   }
 }

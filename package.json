@@ -1,15 +1,20 @@
 {
-  "name": "AngTest",
+  "name": "pvd-suggest-angtest",
   "version": "1.0.0",
-  "description": "",
+  "description": "AngularJS demo of test of pvd-suggest",
+  "readme": "README.md",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "repository": "https://github.com/ingfy/pvd-suggest-angtest.git",
+  "author": "Yngve Svalestuen",
   "license": "ISC",
   "devDependencies": {
+    "del": "^1.1.1",
+    "gh-pages": "^0.2.0",
     "gulp": "^3.8.11",
+    "gulp-gh-pages": "^0.5.0",
     "gulp-inject": "^1.2.0",
     "gulp-rename": "^1.2.0",
     "main-bower-files": "^2.6.2"
