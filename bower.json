@@ -18,7 +18,7 @@
     "pvd-suggest": "ingfy/pvd-suggest#7f73341"
   },
   "overrides": {
-    "bootstrap": {"main": ["dist/css/bootstrap-theme.css", "dist/css/bootstrap.css", "dist/fonts/*"]},
+    "bootstrap": {"main": ["dist/css/bootstrap-theme.min.css", "dist/css/bootstrap.min.css", "dist/fonts/*"]},
     "jquery": {"main": []}
   }
 }
